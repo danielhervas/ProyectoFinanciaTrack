@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-ES" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>FinanciaTrack</title>
+
+  <!-- ===============================================-->
+  <!--    Favicons-->
+  <!-- ===============================================-->
+
+  <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- ===============================================-->
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Preconnect para Google Fonts y carga de la fuente "Cal Sans" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+</head>
+
+<style>
+  .text-success-custom {
+    color: #6ddb6d !important;
+  }
+  .border-success-custom {
+    border-color: #6ddb6d !important;
+  }
+  .btn-success-custom {
+    background-color: #6ddb6d !important;
+    color: #000 !important;
+    border: none;
+  }
+  .form-control.border-success-custom:focus {
+    box-shadow: 0 0 0 0.25rem rgba(109, 219, 109, 0.25);
+  }
+</style>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white rounded-4 shadow-lg border border-success-custom">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-success-custom fw-bold" id="loginModalLabel">Inicio de sesión y registro</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <form action="/login" method="post">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="email" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control bg-secondary text-white border-success-custom" id="password" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-success-custom fw-bold">Iniciar sesión</button>
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<body>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+  <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3" data-navbar-on-scroll="data-navbar-on-scroll">
+    <div class="container">
+      <a class="w-50" href="http://localhost:8080/inicio"><img class="w-50" src="/assets/img/logo_app.png"  alt=""/></a>
+      <!-- Botón de toggle, el data-bs-target debe coincidir con el ID del contenedor del menú -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="http://localhost:8080/markets">Mercados</a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/news">Noticias</a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/predicciones">Predicciones</a></li>
+          <li class="nav-item mt-2 mt-lg-0">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3"
+               href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#loginModal">
+              Log In
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="bg-dark text-center py-5">
+    <div class="container pt-5">
+      <p class="text-center text-white fs-1 mt-5" style="font-family: 'Cal Sans', sans-serif;">Mercados</p>
+      <div class="col-12 col-md-7 mx-auto mt-5">
+        <h1 class="text-white fs-3 my-2">Seguimiento en tiempo real de los principales mercados globales.</h1>
+      </div>
+      <p class="w-md-50 text-light mx-auto">Consulta cotizaciones, accede a análisis y tendencias clave para tomar
+        decisiones informadas.</p>
+    </div>
+    <!-- end of .container-->
+
+  </section>
+  <!-- ============================================-->
+
+
+
+  <!-- ============================================-->
+  <!-- <section> begin ============================-->
+  <section class="p-3 bg-dark">
+    <div class="container">
+      <h1 class="text-center text-white fs-3 my-4">Empresas más grandes del mundo.</h1>
+      <!-- Fila con flex y grid responsive -->
+      <div class="d-flex justify-content-center flex-wrap row row-cols-2 row-cols-md-3 row-cols-xxl-4 g-4 mt-3">
+        <div id="cardContainer" class="col"></div>
+        <div id="cardContainer2" class="col"></div>
+        <div id="cardContainer3" class="col"></div>
+        <div id="cardContainer4" class="col"></div>
+        <div id="cardContainer5" class="col"></div>
+        <div id="cardContainer6" class="col"></div>
+      </div>
+    </div>
+  </section><!-- <section> close ============================-->
+  <!-- ============================================-->
+
+  <section class="bg-dark p-3">
+
+    <div class="container">
+      <div class="px-md-5 px-3">
+        <div class="container mt-4">
+          <h2 class="text-center text-white mb-4">Top 100 Criptomonedas</h2>
+
+          <!-- Barra de búsqueda -->
+          <div class="row mb-3">
+            <div class="col-md-6 offset-md-3">
+              <input type="text" class="form-control" id="searchInput" placeholder="Buscar criptomoneda...">
+            </div>
+          </div>
+
+          <div id="crypto-list" class="row gy-3"></div>
+
+          <nav>
+            <ul class="pagination justify-content-center mt-4" id="pagination"></ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- end of .container-->
+
+  </section>
+
+
+
+</main>
+
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+<section class="pt-0">
+  <div class="container pb-4">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 col-sm-12"><a href="index.html"><img class="img-fluid mt-5 mb-4 w-25"
+                                                                src="/assets/img/logo_app.png" alt="" /></a>
+        <p class="w-lg-75 text-gray">Plataforma de información relacionada con los mercados financieros. No damos
+          consejo financiero.</p>
+        <p class="text-gray">Todos los derechos reservados.</p>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Mercados</h3>
+        <ul class="list-unstyled">
+          <li class="my-3 col-md-4"><a href="#" class="text-decoration-none text-dark">Empresas</a></li>
+          <li class="my-3"><a href="#" class="text-decoration-none text-dark">Otros</a></li>
+          <li class="my-3"><a href="#" class="text-decoration-none text-dark">Criptomonedas</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Noticias</h3>
+        <ul class="list-unstyled">
+          <li class="my-3"><a href="#" class="text-decoration-none text-dark">Última Hora</a></li>
+          <li class="my-3"><a href="#" class="text-decoration-none text-dark">Noticias Destacadas</a></li>
+          <li class="my-3"><a href="#" class="text-decoration-none text-dark">Otros</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Predicciones</h3>
+        <ul class="list-unstyled">
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark">Mercados</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark">Líderes</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark">Sociedad</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!--    JavaScripts-->
+<!-- ===============================================-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!--    <script src="/js/APPLE.js"></script>-->
+<!--    <script src="/js/NVDA.js"></script>-->
+<!--    <script src="/js/META.js"></script>-->
+<!--    <script src="/js/AMAZON.js"></script>-->
+<!--    <script src="/js/ALPHABET.js"></script>-->
+<!--    <script src="/js/TESLA.js"></script>-->
+<script src="/js/MostarCryptos.js"></script>
+</body>
+
+</html>

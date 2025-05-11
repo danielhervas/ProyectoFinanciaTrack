@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinanciaTrack</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reducir altura del carrusel */
+    #newsCarousel {
+      max-height: 500px;
+      overflow: hidden;
+    }
+    /* Ajustar tarjetas internas */
+    #newsCarousel .carousel-item .card {
+      max-height: 500px;
+      overflow: hidden;
+    }
+    /* Limitar altura de la imagen */
+    #newsCarousel .card-img-top {
+      max-height: 160px;
+      object-fit: cover;
+    }
+    /* Hacer visibles y más grandes los controles */
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 7%;
+      top: 45%;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(109,219,109,0.8);
+      border-radius: 50%;
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3">
+  <div class="container">
+    <img class="w-25" src="/assets/img/logo_app.png" alt="">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/markets">Mercados</a></li>
+        <li class="nav-item"><a class="nav-link" href="/news">Noticias</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/predicciones">Predicciones</a></li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white rounded-4 shadow-lg border border-success-custom">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-success-custom fw-bold">Inicio de sesión</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="/login" method="post">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control bg-secondary text-white border-success-custom" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-success-custom fw-bold">Iniciar sesión</button>
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Noticias -->
+<main class="main mt-5 pt-5">
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Últimas Noticias sobre Criptomonedas</h1>
+
+    <!-- Carousel de noticias -->
+    <div id="newsCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+      <div class="carousel-inner" id="carousel-inner">
+        <!-- Slides se inyectan aquí -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+
+    <!-- Grid de noticias restantes -->
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="news-container">
+      <!-- Se inyectan aquí -->
+    </div>
+  </div>
+</main>
+
+<section class="pt-0">
+  <div class="container pb-4">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 col-sm-12"><a href="index.html"><img class="img-fluid mt-5 mb-4 w-25" src="/assets/img/logo_app.png" alt="" /></a>
+        <p class="w-lg-75 text-gray">Plataforma de información relacionada con los mercados financieros. No damos consejo financiero.</p>
+        <p class="text-gray">Todos los derechos reservados.</p>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Mercados</h3>
+        <ul class="list-unstyled">
+          <li class="my-3 col-md-4"><a href="#" class="text-decoration-none text-dark">Empresas</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Otros</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Criptomonedas</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Noticias</h3>
+        <ul class="list-unstyled">
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Última Hora</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Noticias Destacadas</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Otros</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Predicciones</h3>
+        <ul class="list-unstyled">
+          <li class="mb-3"><a href="#"class="text-decoration-none text-dark">Mercados</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark" >Líderes</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark">Sociedad</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const carouselInner = document.getElementById("carousel-inner");
+    const newsContainer = document.getElementById("news-container");
+
+    fetch("https://data-api.coindesk.com/news/v1/article/list?limit=12&lang=ES")
+            .then(response => response.json())
+            .then(data => {
+              const news = data.Data;
+
+              news.slice(0, 5).forEach((item, index) => {
+                const div = document.createElement("div");
+                div.className = `carousel-item ${index === 0 ? "active" : ""}`;
+                div.innerHTML = `
+              <div class="d-flex justify-content-center">
+                <div class="card" style="width: 80%;">
+                  <img src="${item.IMAGE_URL}" class="card-img-top" alt="${item.TITLE}">
+                  <div class="card-body">
+                    <h5 class="card-title">${item.TITLE}</h5>
+                    <p class="card-text">${item.BODY.slice(0, 150)}...</p>
+                    <a href="${item.URL}" class="btn btn-primary" target="_blank">Leer más</a>
+                  </div>
+                </div>
+              </div>
+            `;
+                carouselInner.appendChild(div);
+              });
+
+              news.slice(5).forEach(item => {
+                const col = document.createElement("div");
+                col.classList.add("col");
+                col.innerHTML = `
+              <div class="card h-100">
+                <img src="${item.IMAGE_URL}" class="card-img-top" alt="${item.TITLE}">
+                <div class="card-body">
+                  <h5 class="card-title">${item.TITLE}</h5>
+                  <p class="card-text">${item.BODY.slice(0, 150)}...</p>
+                  <a href="${item.URL}" class="btn btn-primary" target="_blank">Leer más</a>
+                </div>
+              </div>
+            `;
+                newsContainer.appendChild(col);
+              });
+            })
+            .catch(error => console.error("Error al cargar las noticias:", error));
+  });
+</script>
+</body>
+</html>

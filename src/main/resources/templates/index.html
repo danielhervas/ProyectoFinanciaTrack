@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-ES" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>FinanciaTrack</title>
+
+  <!-- ===============================================-->
+  <!--    Favicons-->
+  <!-- ===============================================-->
+  W
+  <meta name="theme-color" content="#ffffff">
+
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Preconnect para Google Fonts y carga de la fuente "Cal Sans" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+
+</head>
+
+<style>
+  .text-success-custom {
+    color: #6ddb6d !important;
+  }
+  .border-success-custom {
+    border-color: #6ddb6d !important;
+  }
+  .btn-success-custom {
+    background-color: #6ddb6d !important;
+    color: #000 !important;
+    border: none;
+  }
+  .form-control.border-success-custom:focus {
+    box-shadow: 0 0 0 0.25rem rgba(109, 219, 109, 0.25);
+  }
+</style>
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white rounded-4 shadow-lg border border-success-custom">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-success-custom fw-bold" id="loginModalLabel">Inicio de sesión y registro</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <form action="/login" method="post">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="email" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control bg-secondary text-white border-success-custom" id="password" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-success-custom fw-bold">Iniciar sesión</button>
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<body>
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+  <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3" data-navbar-on-scroll="data-navbar-on-scroll">
+    <div class="container">
+      <img src="/assets/img/logo_app.png" class="w-25" alt="">
+      <!-- Botón de toggle, el data-bs-target debe coincidir con el ID del contenedor del menú -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/markets">Mercados</a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/news">Noticias</a></li>
+          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/predicciones">Predicciones</a></li>
+          <li class="nav-item mt-2 mt-lg-0">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3"
+               href="#"
+               data-bs-toggle="modal"
+               data-bs-target="#loginModal">
+              Log In
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="bg-dark pt-5">
+    <!-- <img class="img-fluid position-absolute end-0" src="assets/img/hero/hero-bg.png" alt="Background Image" /> -->
+
+    <!-- Hero Section -->
+    <section>
+      <div class="container pt-5 mt-5">
+        <div class="row align-items-center py-lg-8 py-6">
+          <div class="col-lg-6 text-center text-lg-start mt-5">
+            <h1 class="fs-1" style="font-family: 'Cal Sans', sans-serif; color: #6ddb6d;">
+              La forma inteligente de gestionar tus finanzas
+            </h1>
+            <p class="text-white fs-6 py-lg-3 py-2">Noticias de última hora, precios, mercados, criptomonedas, rankings, predicciones y mucho más!</p>
+            <div class="d-sm-flex align-items-center gap-3">
+              <button class="btn btn-light text-dark mb-3 w-25 rounded-4 text-center fw-bold">Únete</button>
+            </div>
+          </div>
+          <div class="col-lg-6 text-center text-lg-end mt-3 mt-lg-0">
+            <img class="img-fluid" src="/assets/img/hero/hero-graphics.png" alt="Hero Graphics" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Services Section -->
+    <section>
+      <div class="container p-5">
+        <p class="text-center text-white fs-2 fs-md-1 p-5" style="font-family: 'Cal Sans', sans-serif;">Nuestros servicios</p>
+        <div class="row gx-xl-7 mt-5">
+          <div class="col-md-4 mb-6 mb-md-0 text-center ">
+            <img class="w-75 w-md-100 rounded-2" src="/assets/img/services/mercados.png" alt="Service 1" />
+            <h4 class="mt-3 my-1 text-white">Mercados</h4>
+            <p class="fs-6 mb-0 mt-3 text-white pb-5 w-75 mx-auto ">Precios, gráficas y otros</p>
+
+          </div>
+          <div class="col-md-4 mb-6 mb-md-0 text-center ">
+            <img class="w-75 w-md-100 rounded-2" src="/assets/img/services/noticias.png" alt="Service 2" />
+            <h4 class="mt-3 my-1 text-white">Noticias</h4>
+            <p class="fs-6 mb-0 mt-3 text-white pb-5 w-75 mx-auto ">Noticias internacionales, últimas 24h.</p>
+
+          </div>
+          <div class="col-md-4 mb-6 mb-md-0 text-center ">
+            <img class="w-75 w-md-100 rounded-2" src="/assets/img/services/predicciones.png" alt="Service 3" />
+            <h4 class="mt-3 my-1 text-white">Predicciones</h4>
+            <p class="fs-6 mt-3 text-white pb-5 w-75 mx-auto">¿Qué apuesta el mercado?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
+
+
+
+<!-- ============================================-->
+<!-- <section> begin ============================-->
+<section class="pt-0">
+  <div class="container pb-4">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 col-sm-12"><a href="index.html"><img class="img-fluid mt-5 mb-4 w-25" src="/assets/img/logo_app.png" alt="" /></a>
+        <p class="w-lg-75 text-gray">Plataforma de información relacionada con los mercados financieros. No damos consejo financiero.</p>
+        <p class="text-gray">Todos los derechos reservados.</p>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Mercados</h3>
+        <ul class="list-unstyled">
+          <li class="my-3 col-md-4"><a href="#" class="text-decoration-none text-dark">Empresas</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Otros</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Criptomonedas</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Noticias</h3>
+        <ul class="list-unstyled">
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Última Hora</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Noticias Destacadas</a></li>
+          <li class="my-3"><a href="#"class="text-decoration-none text-dark">Otros</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-4">
+        <h3 class="fw-bold fs-3 mt-5 mb-4">Predicciones</h3>
+        <ul class="list-unstyled">
+          <li class="mb-3"><a href="#"class="text-decoration-none text-dark">Mercados</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark" >Líderes</a></li>
+          <li class="mb-3"><a href="#" class="text-decoration-none text-dark">Sociedad</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===============================================-->
+<!--    JavaScripts-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
