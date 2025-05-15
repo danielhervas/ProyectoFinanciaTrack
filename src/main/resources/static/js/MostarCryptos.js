@@ -47,7 +47,7 @@ function renderPage() {
         list.innerHTML += `
           <div class="col-md-6 col-lg-4 crypto-card">
             <div class="card shadow h-100 border rounded-4 bg-light text-dark">
-              <div class="card-body">
+              <div class="card-body h-100">
                 <div class="d-flex align-items-center mb-3">
                   ${logo ? `<img src="${logo}" alt="${name}" class="me-2" style="height: 32px; width: 32px; object-fit: contain;">` : ""}
                   <h5 class="card-title mb-0 fw-bold">${name} <small class="text-muted">(${symbol})</small></h5>
@@ -55,6 +55,11 @@ function renderPage() {
                 <p>💰 <strong>Precio:</strong> <span class="fw-bold">$${price}</span></p>
                 <p>🏦 <strong>Market Cap:</strong> $${(marketCap / 1e9).toFixed(2)} B</p>
                 <p>📉 <strong>Cambio 24h:</strong> <span style="color:${change24h > 0 ? 'green' : (change24h < 0 ? 'red' : 'black')}">${changeFormatted}</span></p>
+                <p class="mt-3 text-end text-center pt-2">
+                  <button class="btn btn-success rounded-4 btn-ver-grafico" data-symbol="${symbol}">
+                    Ver gráfico
+                  </button>
+                </p>
               </div>
             </div>
           </div>`;
@@ -62,6 +67,14 @@ function renderPage() {
 
 
     setupPagination();
+
+    document.querySelectorAll(".btn-ver-grafico").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            const symbol = e.currentTarget.getAttribute("data-symbol");
+            abrirGrafico(symbol); // función que está en chart.js
+        });
+    });
+
 }
 
 function setupPagination() {
@@ -97,3 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
         renderPage();
     });
 });
+
