@@ -57,22 +57,44 @@
         <h5 class="modal-title text-success-custom fw-bold" id="loginModalLabel">Inicio de sesión y registro</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
-      <form action="/login" method="post">
+
+      <!-- Botones de alternancia -->
+      <div class="text-center my-2">
+        <button class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
+        <button class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
+      </div>
+
+      <!-- Formulario de login -->
+      <form id="loginForm" action="/auth/login" method="post">
         <div class="modal-body">
           <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="email"
-                   name="username" required>
+            <label for="loginEmail" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="loginEmail" name="username" required>
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control bg-secondary text-white border-success-custom" id="password"
-                   name="password" required>
+            <label for="loginPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control bg-secondary text-white border-success-custom" id="loginPassword" name="password" required>
           </div>
         </div>
         <div class="modal-footer border-0">
           <button type="submit" class="btn btn-success-custom fw-bold">Iniciar sesión</button>
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+
+      <!-- Formulario de registro -->
+      <form id="registerForm" action="/auth/register" method="post" style="display: none;">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="registerEmail" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="registerEmail" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="registerPassword" class="form-label">Contraseña</label>
+            <input type="password" class="form-control bg-secondary text-white border-success-custom" id="registerPassword" name="password" required>
+          </div>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="submit" class="btn btn-success-custom fw-bold">Registrarse</button>
         </div>
       </form>
     </div>
@@ -125,12 +147,12 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+          <li class="nav-item"><a class="nav-link " aria-current="page" href="http://localhost:8080/inicio">Inicio</a></li>
           <li class="nav-item"><a class="nav-link active" aria-current="page"
                                   href="http://localhost:8080/markets">Mercados</a></li>
           <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/news">Noticias</a>
           </li>
-          <li class="nav-item"><a class="nav-link" aria-current="page"
-                                  href="http://localhost:8080/predicciones">Predicciones</a></li>
+
           <li class="nav-item mt-2 mt-lg-0">
             <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#"
                data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -262,6 +284,7 @@
 <script src="/js/MostarCryptos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="/js/chart.js"></script>
+<script src="/js/mostrarFormulario.js"></script>
 </body>
 
 </html>
