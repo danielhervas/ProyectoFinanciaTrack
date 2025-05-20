@@ -21,11 +21,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserService userService;
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/auth");
+    }
     // Aquí @Lazy en UserService para romper ciclo
     public JwtAuthenticationFilter(JwtService jwtService, @Lazy UserService userService) {
         this.jwtService = jwtService;
         this.userService = userService;
     }
+
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

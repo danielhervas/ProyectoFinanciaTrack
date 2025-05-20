@@ -29,9 +29,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf(csrf -> csrf.disable()) // 🔥 Necesario para HTML en static/
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/markets", "/inicio","/news").permitAll()
+                        .requestMatchers("/auth/register", "/auth/login").permitAll()
+                        .requestMatchers("/markets", "/inicio", "/news").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/js/**").permitAll()
@@ -40,6 +41,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter,
                         org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
+        System.out.println("SecurityFilterChain initialized ✅");
         return http.build();
     }
 
