@@ -59,6 +59,7 @@
 </head>
 
 <body>
+<main>
 <!-- Navbar -->
 <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3">
   <div class="container">
@@ -71,13 +72,62 @@
         <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/inicio">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="/markets">Mercados</a></li>
         <li class="nav-item"><a class="nav-link active" href="/news">Noticias</a></li>
-        <li class="nav-item">
-          <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log In</a>
+        <!-- Botón de Log In -->
+        <li class="nav-item mt-2 mt-lg-0" id="loginButton">
+          <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Log In
+          </a>
+        </li>
+
+        <!-- Botón de Log Out -->
+        <li class="nav-item mt-2 mt-lg-0" id="logoutButton" style="display: none;">
+          <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" onclick="logout()">
+            Log Out
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+</main>
+<script>
+  // Función para obtener el valor de una cookie por su nombre
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // Función para actualizar la interfaz según el estado de autenticación
+  function updateAuthUI() {
+    const token = getCookie('token');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (token) {
+      // Si el token existe, muestra el botón de "Log Out" y oculta el de "Log In"
+      loginButton.style.display = 'none';
+      logoutButton.style.display = 'block';
+    } else {
+      // Si no existe el token, muestra el botón de "Log In" y oculta el de "Log Out"
+      loginButton.style.display = 'block';
+      logoutButton.style.display = 'none';
+    }
+  }
+
+  // Llama a la función para actualizar la interfaz al cargar la página
+  window.onload = updateAuthUI;
+</script>
+<script>
+  function logout() {
+    // Elimina la cookie 'token'
+    document.cookie = 'token=; Max-Age=0; path=/';
+
+    // Redirige al usuario a la página de inicio
+    window.location.href = '/inicio';
+  }
+</script>
+
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -98,7 +148,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="loginEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="loginEmail" name="username" required>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="loginEmail" name="email" required>
           </div>
           <div class="mb-3">
             <label for="loginPassword" class="form-label">Contraseña</label>
@@ -115,7 +165,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="registerEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="registerEmail" name="username" required>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="registerEmail" name="email" required>
           </div>
           <div class="mb-3">
             <label for="registerPassword" class="form-label">Contraseña</label>

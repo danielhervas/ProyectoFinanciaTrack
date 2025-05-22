@@ -77,56 +77,6 @@
         </div>
       </form>
 
-      <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-          e.preventDefault();
-
-          const email = this.email.value.trim();
-          const password = this.password.value.trim();
-
-          if (!email || !password) {
-            alert("Introduce email y contraseña");
-            return;
-          }
-
-          const body = JSON.stringify({ email, password });
-
-          try {
-            const res = await fetch(this.action, {
-              method: this.method,
-              headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-              },
-              body
-            });
-
-            console.log('Response status:', res.status);
-
-            if (!res.ok) {
-              const errorText = await res.text();
-              console.error('Error response:', errorText);
-              throw new Error('Credenciales incorrectas o error en servidor');
-            }
-
-            const data = await res.json();
-            console.log('Respuesta JSON:', data);
-
-            // Guarda token localmente si quieres
-            localStorage.setItem('token', data.token);
-
-            // Recarga o redirige donde quieras
-            window.location.reload();
-
-          } catch (err) {
-            console.error('Error catch:', err);
-            alert('Error al iniciar sesión: ' + err.message);
-          }
-        });
-      </script>
-
-
-
 
       <!-- Formulario de registro -->
       <form id="registerForm" action="/auth/register" method="post" style="display: none;">
@@ -157,28 +107,74 @@
   <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3" data-navbar-on-scroll="data-navbar-on-scroll">
     <div class="container">
       <img src="/assets/img/logo_app.png" class="w-25" alt="">
-      <!-- Botón de toggle, el data-bs-target debe coincidir con el ID del contenedor del menú -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="http://localhost:8080/inicio">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link " aria-current="page" href="http://localhost:8080/markets">Mercados</a></li>
-          <li class="nav-item"><a class="nav-link " aria-current="page" href="http://localhost:8080/news">Noticias</a></li>
+          <li class="nav-item"><a class="nav-link active" href="http://localhost:8080/inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://localhost:8080/markets">Mercados</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://localhost:8080/news">Noticias</a></li>
 
-          <li class="nav-item mt-2 mt-lg-0">
-            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3"
-               href="#"
-               data-bs-toggle="modal"
-               data-bs-target="#loginModal">
+          <!-- Botón de Log In -->
+          <li class="nav-item mt-2 mt-lg-0" id="loginButton">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
               Log In
+            </a>
+          </li>
+
+          <!-- Botón de Log Out -->
+          <li class="nav-item mt-2 mt-lg-0" id="logoutButton" style="display: none;">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#" onclick="logout()">
+              Log Out
             </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+</main>
+
+<script>
+  // Función para obtener el valor de una cookie por su nombre
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // Función para actualizar la interfaz según el estado de autenticación
+  function updateAuthUI() {
+    const token = getCookie('token');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (token) {
+      // Si el token existe, muestra el botón de "Log Out" y oculta el de "Log In"
+      loginButton.style.display = 'none';
+      logoutButton.style.display = 'block';
+    } else {
+      // Si no existe el token, muestra el botón de "Log In" y oculta el de "Log Out"
+      loginButton.style.display = 'block';
+      logoutButton.style.display = 'none';
+    }
+  }
+
+  // Llama a la función para actualizar la interfaz al cargar la página
+  window.onload = updateAuthUI;
+</script>
+<script>
+  function logout() {
+    // Elimina la cookie 'token'
+    document.cookie = 'token=; Max-Age=0; path=/';
+
+    // Redirige al usuario a la página de inicio
+    window.location.href = '/inicio';
+  }
+</script>
+
+
+
 
   <div class="bg-dark pt-5">
     <!-- <img class="img-fluid position-absolute end-0" src="assets/img/hero/hero-bg.png" alt="Background Image" /> -->
@@ -228,7 +224,7 @@
         </div>
       </div>
     </section>
-  </main>
+  </div>
 <!-- ===============================================-->
 <!--    End of Main Content-->
 <!-- ===============================================-->

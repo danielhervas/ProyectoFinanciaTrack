@@ -69,7 +69,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="loginEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="loginEmail" name="username" required>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="loginEmail" name="email" required>
           </div>
           <div class="mb-3">
             <label for="loginPassword" class="form-label">Contraseña</label>
@@ -86,7 +86,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <label for="registerEmail" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="registerEmail" name="username" required>
+            <input type="email" class="form-control bg-secondary text-white border-success-custom" id="registerEmail" name="email" required>
           </div>
           <div class="mb-3">
             <label for="registerPassword" class="form-label">Contraseña</label>
@@ -135,11 +135,11 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <main class="main" id="top">
-  <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3"
-       data-navbar-on-scroll="data-navbar-on-scroll">
+  <nav class="navbar bg-dark navbar-expand-lg fixed-top navbar-dark py-3" data-navbar-on-scroll="data-navbar-on-scroll">
     <div class="container">
-      <a class="w-50" href="http://localhost:8080/inicio"><img class="w-50" src="/assets/img/logo_app.png"
-                                                               alt="" /></a>
+      <a class="w-50" href="http://localhost:8080/inicio">
+        <img class="w-50" src="/assets/img/logo_app.png" alt="" />
+      </a>
       <!-- Botón de toggle, el data-bs-target debe coincidir con el ID del contenedor del menú -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,22 +147,78 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-          <li class="nav-item"><a class="nav-link " aria-current="page" href="http://localhost:8080/inicio">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page"
-                                  href="http://localhost:8080/markets">Mercados</a></li>
-          <li class="nav-item"><a class="nav-link" aria-current="page" href="http://localhost:8080/news">Noticias</a>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="http://localhost:8080/inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://localhost:8080/markets">Mercados</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="http://localhost:8080/news">Noticias</a>
           </li>
 
-          <li class="nav-item mt-2 mt-lg-0">
-            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3" href="#"
-               data-bs-toggle="modal" data-bs-target="#loginModal">
+          <!-- Botón de Log In -->
+          <li class="nav-item mt-2 mt-lg-0" id="loginButton">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3"
+               href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
               Log In
+            </a>
+          </li>
+
+          <!-- Botón de Log Out -->
+          <li class="nav-item mt-2 mt-lg-0" id="logoutButton" style="display: none;">
+            <a class="nav-link btn btn-light text-black rounded-pill px-4 py-2 ms-lg-3"
+               href="#" onclick="logout()">
+              Log Out
             </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+</main>
+
+<!-- SCRIPTS al final, fuera de <main> -->
+<script>
+  // Función para obtener el valor de una cookie por su nombre
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  // Función para actualizar la interfaz según el estado de autenticación
+  function updateAuthUI() {
+    const token = getCookie('token');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (token) {
+      // Si el token existe, muestra "Log Out" y oculta "Log In"
+      loginButton.style.display = 'none';
+      logoutButton.style.display = 'block';
+    } else {
+      // Si no existe, muestra "Log In" y oculta "Log Out"
+      loginButton.style.display = 'block';
+      logoutButton.style.display = 'none';
+    }
+  }
+
+  // Ejecuta al cargar la página
+  window.onload = updateAuthUI;
+</script>
+
+<script>
+  function logout() {
+    // Elimina la cookie 'token'
+    document.cookie = 'token=; Max-Age=0; path=/';
+
+    // Redirige al usuario a la página de inicio
+    window.location.href = '/inicio';
+  }
+</script>
+
+
 
   <!-- ============================================-->
   <!-- <section> begin ============================-->
