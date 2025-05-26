@@ -26,25 +26,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="/css/formlogin.css">
 </head>
 
-<style>
-  .text-success-custom {
-    color: #6ddb6d !important;
-  }
-  .border-success-custom {
-    border-color: #6ddb6d !important;
-  }
-  .btn-success-custom {
-    background-color: #6ddb6d !important;
-    color: #000 !important;
-    border: none;
-  }
-  .form-control.border-success-custom:focus {
-    box-shadow: 0 0 0 0.25rem rgba(109, 219, 109, 0.25);
-  }
-</style>
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -56,8 +40,8 @@
 
       <!-- Botones de alternancia -->
       <div class="text-center my-2">
-        <button class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
-        <button class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
+        <button id="btnLogin" class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
+        <button id="btnRegister" class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
       </div>
 
 
@@ -134,45 +118,6 @@
     </div>
   </nav>
 </main>
-
-<script>
-  // Función para obtener el valor de una cookie por su nombre
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  // Función para actualizar la interfaz según el estado de autenticación
-  function updateAuthUI() {
-    const token = getCookie('token');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-
-    if (token) {
-      // Si el token existe, muestra el botón de "Log Out" y oculta el de "Log In"
-      loginButton.style.display = 'none';
-      logoutButton.style.display = 'block';
-    } else {
-      // Si no existe el token, muestra el botón de "Log In" y oculta el de "Log Out"
-      loginButton.style.display = 'block';
-      logoutButton.style.display = 'none';
-    }
-  }
-
-  // Llama a la función para actualizar la interfaz al cargar la página
-  window.onload = updateAuthUI;
-</script>
-<script>
-  function logout() {
-    // Elimina la cookie 'token'
-    document.cookie = 'token=; Max-Age=0; path=/';
-
-    // Redirige al usuario a la página de inicio
-    window.location.href = '/inicio';
-  }
-</script>
-
 
 
 
@@ -276,6 +221,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/mostrarFormulario.js"></script>
+<script src="/js/obtenerToken.js"></script>
+<script src="/js/eliminarToken.js"></script>
 </body>
 
 </html>

@@ -29,13 +29,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // 🔥 Necesario para HTML en static/
+                .csrf(csrf -> csrf.disable()) //
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .requestMatchers("/markets", "/inicio", "/news").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/js/**").permitAll()
+                        .requestMatchers("/css/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter,

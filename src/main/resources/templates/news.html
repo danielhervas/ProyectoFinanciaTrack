@@ -11,51 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/formlogin.css">
+  <link rel="stylesheet" href="/css/carousel.css">
 
-  <style>
-    /* Reducir altura del carrusel */
-    #newsCarousel {
-      max-height: 500px;
-      overflow: hidden;
-    }
-    /* Ajustar tarjetas internas */
-    #newsCarousel .carousel-item .card {
-      max-height: 500px;
-      overflow: hidden;
-    }
-    /* Limitar altura de la imagen */
-    #newsCarousel .card-img-top {
-      max-height: 160px;
-      object-fit: cover;
-    }
-    /* Hacer visibles y más grandes los controles */
-    .carousel-control-prev,
-    .carousel-control-next {
-      width: 7%;
-      top: 45%;
-    }
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-      background-color: rgba(109,219,109,0.8);
-      border-radius: 50%;
-      padding: 1rem;
-    }
-
-    .text-success-custom {
-      color: #6ddb6d !important;
-    }
-    .border-success-custom {
-      border-color: #6ddb6d !important;
-    }
-    .btn-success-custom {
-      background-color: #6ddb6d !important;
-      color: #000 !important;
-      border: none;
-    }
-    .form-control.border-success-custom:focus {
-      box-shadow: 0 0 0 0.25rem rgba(109, 219, 109, 0.25);
-    }
-  </style>
 </head>
 
 <body>
@@ -90,43 +48,7 @@
   </div>
 </nav>
 </main>
-<script>
-  // Función para obtener el valor de una cookie por su nombre
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
 
-  // Función para actualizar la interfaz según el estado de autenticación
-  function updateAuthUI() {
-    const token = getCookie('token');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-
-    if (token) {
-      // Si el token existe, muestra el botón de "Log Out" y oculta el de "Log In"
-      loginButton.style.display = 'none';
-      logoutButton.style.display = 'block';
-    } else {
-      // Si no existe el token, muestra el botón de "Log In" y oculta el de "Log Out"
-      loginButton.style.display = 'block';
-      logoutButton.style.display = 'none';
-    }
-  }
-
-  // Llama a la función para actualizar la interfaz al cargar la página
-  window.onload = updateAuthUI;
-</script>
-<script>
-  function logout() {
-    // Elimina la cookie 'token'
-    document.cookie = 'token=; Max-Age=0; path=/';
-
-    // Redirige al usuario a la página de inicio
-    window.location.href = '/inicio';
-  }
-</script>
 
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -139,8 +61,8 @@
 
       <!-- Botones de alternancia -->
       <div class="text-center my-2">
-        <button class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
-        <button class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
+        <button id="btnLogin" class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
+        <button id="btnRegister" class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
       </div>
 
       <!-- Formulario de login -->
@@ -257,119 +179,10 @@
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/mostrarFormulario.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const carouselInner   = document.getElementById("carousel-inner");
-    const newsContainer   = document.getElementById("news-container");
-    const paginationNav   = document.getElementById("pagination-nav");
+<script src="/js/paginadoNews.js"></script>
 
-    const pageSize = 9;       // Noticias por página
-    let currentPage = 1;
-    let allNews = [];
-
-    fetch("https://data-api.coindesk.com/news/v1/article/list?limit=100&lang=ES")
-            .then(resp => resp.json())
-            .then(data => {
-              allNews = data.Data;
-              renderCarousel(allNews.slice(0, 5));
-              setupPagination(allNews.slice(5));
-              renderPage(1);
-            })
-            .catch(err => console.error("Error al cargar las noticias:", err));
-
-    // Renderiza el carrusel
-    function renderCarousel(items) {
-      items.forEach((item, i) => {
-        const div = document.createElement("div");
-        div.className = `carousel-item ${i===0?"active":""} h-100`;
-        div.innerHTML = `
-          <div class="d-flex justify-content-center">
-                <div class="card h-100 d-flex flex-column" style="width: 80%;">
-                  <img src="${item.IMAGE_URL}" class="card-img-top" alt="${item.TITLE}">
-                  <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${item.TITLE}</h5>
-                    <p class="card-text">${item.BODY.slice(0, 150)}...</p>
-                    <div class="d-flex justify-content-center mt-auto">
-                      <a href="${item.URL}" class="btn btn-success rounded-4" target="_blank">Leer más</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        `;
-        carouselInner.appendChild(div);
-      });
-    }
-
-    // Configura los botones de paginación
-    function setupPagination(items) {
-      const totalPages = Math.ceil(items.length / pageSize);
-      paginationNav.innerHTML = "";
-
-      // Prev
-      paginationNav.appendChild(createPageItem("«", currentPage > 1, () => changePage(currentPage - 1)));
-
-      // Páginas
-      for (let p = 1; p <= totalPages; p++) {
-        const isActive = p === currentPage;
-        paginationNav.appendChild(createPageItem(p, true, () => changePage(p), isActive));
-      }
-
-      // Next
-      paginationNav.appendChild(createPageItem("»", currentPage < totalPages, () => changePage(currentPage + 1)));
-    }
-
-    // Helper para crear un <li> de paginación
-    function createPageItem(label, enabled, onClick, isActive = false) {
-      const li = document.createElement("li");
-      li.className = `page-item ${!enabled?"disabled":""} ${isActive?"active":""}`;
-      const a = document.createElement("a");
-      a.className = "page-link";
-      a.href = "#";
-      a.innerText = label;
-      if (enabled) a.addEventListener("click", e => { e.preventDefault(); onClick(); });
-      li.appendChild(a);
-      return li;
-    }
-
-    // Cambia de página y vuelve a renderizar grid y paginación
-    function changePage(page) {
-      currentPage = page;
-      renderPage(page);
-      setupPagination(allNews.slice(5));
-      window.scrollTo({ top: 0, behavior: "smooth" }); // ← aquí
-    }
-
-
-    // Renderiza una página concreta del grid
-    function renderPage(page) {
-      const start = 5 + (page - 1) * pageSize;
-      const end   = start + pageSize;
-      const items = allNews.slice(start, end);
-
-      newsContainer.innerHTML = "";
-      items.forEach(item => {
-        const col = document.createElement("div");
-        col.className = "col-12 col-md-6 col-xl-4 mb-4";
-        col.innerHTML = `
-          <div class="card h-100 d-flex flex-column">
-                <img src="${item.IMAGE_URL}" class="card-img-top" alt="${item.TITLE}">
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">${item.TITLE}</h5>
-                  <p class="card-text">${item.BODY.slice(0, 150)}...</p>
-                  <div class="d-flex justify-content-center mt-auto">
-                    <a href="${item.URL}" class="btn btn-success rounded-4" target="_blank">Leer más</a>
-                  </div>
-                </div>
-              </div>
-        `;
-        newsContainer.appendChild(col);
-      });
-    }
-
-  });
-</script>
-
-
+<script src="/js/obtenerToken.js"></script>
+<script src="/js/eliminarToken.js"></script>
 
 </body>
 </html>

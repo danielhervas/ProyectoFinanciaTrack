@@ -1,0 +1,27 @@
+/* Reducir altura del carrusel */
+#newsCarousel {
+    max-height: 500px;
+    overflow: hidden;
+}
+/* Ajustar tarjetas internas */
+#newsCarousel .carousel-item .card {
+    max-height: 500px;
+    overflow: hidden;
+}
+/* Limitar altura de la imagen */
+#newsCarousel .card-img-top {
+    max-height: 160px;
+    object-fit: cover;
+}
+/* Hacer visibles y más grandes los controles */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 7%;
+    top: 45%;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(109,219,109,0.8);
+    border-radius: 50%;
+    padding: 1rem;
+}

@@ -80,8 +80,8 @@
     button.className = "btn btn-sm btn-white text-dark border border-1 rounded mx-auto d-block";
     button.textContent = "VER GRÁFICO";
     button.addEventListener("click", () => {
-    alert("Funcionalidad de ver gráfico pendiente de implementación.");
-});
+        window.location.href = "https://es.tradingview.com/symbols/NASDAQ-AAPL/";
+    });
 
     footer.appendChild(button);
 

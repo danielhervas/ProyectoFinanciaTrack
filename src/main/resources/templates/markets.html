@@ -28,27 +28,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/formlogin.css">
 </head>
 
-<style>
-  .text-success-custom {
-    color: #6ddb6d !important;
-  }
 
-  .border-success-custom {
-    border-color: #6ddb6d !important;
-  }
 
-  .btn-success-custom {
-    background-color: #6ddb6d !important;
-    color: #000 !important;
-    border: none;
-  }
-
-  .form-control.border-success-custom:focus {
-    box-shadow: 0 0 0 0.25rem rgba(109, 219, 109, 0.25);
-  }
-</style>
 
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -60,8 +44,8 @@
 
       <!-- Botones de alternancia -->
       <div class="text-center my-2">
-        <button class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
-        <button class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
+        <button id="btnLogin" class="btn btn-success-custom text-success-custom btn-sm me-2 rounded-3" onclick="mostrarFormulario('login')">Iniciar sesión</button>
+        <button id="btnRegister" class="btn btn-outline-light btn-sm rounded-3" onclick="mostrarFormulario('register')">Registrarse</button>
       </div>
 
       <!-- Formulario de login -->
@@ -100,6 +84,7 @@
     </div>
   </div>
 </div>
+
 
 <!-- Modal para el gráfico de criptomonedas -->
 <div class="modal fade" id="graficoModal" tabindex="-1" aria-labelledby="graficoModalLabel" aria-hidden="true">
@@ -178,47 +163,6 @@
   </nav>
 </main>
 
-<!-- SCRIPTS al final, fuera de <main> -->
-<script>
-  // Función para obtener el valor de una cookie por su nombre
-  function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  // Función para actualizar la interfaz según el estado de autenticación
-  function updateAuthUI() {
-    const token = getCookie('token');
-    const loginButton = document.getElementById('loginButton');
-    const logoutButton = document.getElementById('logoutButton');
-
-    if (token) {
-      // Si el token existe, muestra "Log Out" y oculta "Log In"
-      loginButton.style.display = 'none';
-      logoutButton.style.display = 'block';
-    } else {
-      // Si no existe, muestra "Log In" y oculta "Log Out"
-      loginButton.style.display = 'block';
-      logoutButton.style.display = 'none';
-    }
-  }
-
-  // Ejecuta al cargar la página
-  window.onload = updateAuthUI;
-</script>
-
-<script>
-  function logout() {
-    // Elimina la cookie 'token'
-    document.cookie = 'token=; Max-Age=0; path=/';
-
-    // Redirige al usuario a la página de inicio
-    window.location.href = '/inicio';
-  }
-</script>
-
-
 
   <!-- ============================================-->
   <!-- <section> begin ============================-->
@@ -234,27 +178,7 @@
     <!-- end of .container-->
 
   </section>
-  <!-- ============================================-->
 
-
-
-  <!-- ============================================-->
-  <!-- <section> begin ============================-->
-  <section class="p-3 bg-dark">
-    <div class="container">
-      <h1 class="text-center text-white fs-3 my-4">Empresas más grandes del mundo.</h1>
-      <!-- Fila con flex y grid responsive -->
-      <div class="d-flex justify-content-center flex-wrap row row-cols-2 row-cols-md-3 row-cols-xxl-4 g-4 mt-3">
-        <div id="cardContainer" class="col"></div>
-        <div id="cardContainer2" class="col"></div>
-        <div id="cardContainer3" class="col"></div>
-        <div id="cardContainer4" class="col"></div>
-        <div id="cardContainer5" class="col"></div>
-        <div id="cardContainer6" class="col"></div>
-      </div>
-    </div>
-  </section><!-- <section> close ============================-->
-  <!-- ============================================-->
 
   <section class="bg-dark p-3">
 
@@ -279,6 +203,21 @@
       </div>
     </div>
 
+  </section>
+
+  <section class="p-3 bg-dark">
+    <div class="container">
+      <h1 class="text-center text-white fs-3 my-4">Empresas más grandes del mundo.</h1>
+      <!-- Fila con flex y grid responsive -->
+      <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 mb-3">
+        <div id="cardContainer" class="col"></div>
+        <div id="cardContainer2" class="col"></div>
+        <div id="cardContainer3" class="col"></div>
+        <div id="cardContainer4" class="col"></div>
+        <div id="cardContainer5" class="col"></div>
+        <div id="cardContainer6" class="col"></div>
+      </div>
+    </div>
   </section>
 
 
@@ -337,6 +276,8 @@
 <!--    <script src="/js/AMAZON.js"></script>-->
 <!--    <script src="/js/ALPHABET.js"></script>-->
 <!--    <script src="/js/TESLA.js"></script>-->
+<script src="/js/obtenerToken.js"></script>
+<script src="/js/eliminarToken.js"></script>
 <script src="/js/MostarCryptos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="/js/chart.js"></script>
