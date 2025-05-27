@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
-                        .requestMatchers("/markets", "/inicio", "/news").permitAll()
+                        .requestMatchers("/markets", "/inicio", "/news","/comparador").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/assets/**").permitAll()
                         .requestMatchers("/js/**").permitAll()

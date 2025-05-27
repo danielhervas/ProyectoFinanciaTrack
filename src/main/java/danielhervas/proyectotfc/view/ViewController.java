@@ -24,6 +24,12 @@ public class ViewController {
         return "news";
     }
 
+    @GetMapping("/comparador" )
+    public String comparador() {
+
+        return "comparador";
+    }
+
 
 
 
