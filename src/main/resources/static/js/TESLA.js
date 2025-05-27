@@ -2,7 +2,7 @@
 // Función para obtener los datos de la API
 async function obtenerDatosTSLA() {
     try {
-        const response = await fetch("https://financialmodelingprep.com/stable/historical-price-eod/light?symbol=TSLA&apikey=yUFAOz2TSOXSJNIqKMnivVdvuS0NspC8");
+        const response = await fetch("/api/market/tsla");
         const data = await response.json();
         return data;
     } catch (error) {

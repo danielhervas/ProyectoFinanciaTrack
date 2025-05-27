@@ -2,8 +2,8 @@
     // Función para obtener los datos de la API
     async function obtenerDatosAAPL() {
     try {
-    const response = await fetch("https://financialmodelingprep.com/stable/historical-price-eod/light?symbol=AAPL&apikey=yUFAOz2TSOXSJNIqKMnivVdvuS0NspC8");
-    const data = await response.json();
+        const response = await fetch("/api/market/aapl");
+        const data = await response.json();
     return data;
 } catch (error) {
     console.error("Error al obtener datos:", error);

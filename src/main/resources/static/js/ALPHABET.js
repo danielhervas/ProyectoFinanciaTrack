@@ -2,7 +2,7 @@
 // Función para obtener los datos de la API
 async function obtenerDatosGOOG() {
     try {
-        const response = await fetch("https://financialmodelingprep.com/stable/historical-price-eod/light?symbol=GOOGL&apikey=yUFAOz2TSOXSJNIqKMnivVdvuS0NspC8");
+        const response = await fetch("/api/market/googl");
         const data = await response.json();
         return data;
     } catch (error) {
