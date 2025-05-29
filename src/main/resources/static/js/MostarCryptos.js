@@ -82,18 +82,35 @@ function setupPagination() {
     pagination.innerHTML = "";
     const totalPages = Math.ceil(filteredCoins.length / pageSize);
 
+    // Botón <<
+    pagination.innerHTML += `
+      <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="event.preventDefault(); changePage(${currentPage - 1})">&laquo;</a>
+      </li>`;
+
+    // Botones numerados
     for (let i = 1; i <= totalPages; i++) {
         pagination.innerHTML += `
-      <li class="page-item ${i === currentPage ? 'active' : ''}">
-        <a class="page-link" href="#" onclick="event.preventDefault(); changePage(${i})">${i}</a>
-      </li>`;
+          <li class="page-item ${i === currentPage ? 'active' : ''}">
+            <a class="page-link" href="#" onclick="event.preventDefault(); changePage(${i})">${i}</a>
+          </li>`;
     }
+
+    // Botón >>
+    pagination.innerHTML += `
+      <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="event.preventDefault(); changePage(${currentPage + 1})">&raquo;</a>
+      </li>`;
 }
+
+
 
 function changePage(page) {
     currentPage = page;
     renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // desplaza hacia arriba con animación
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCryptos();
